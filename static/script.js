@@ -1,14 +1,10 @@
-let buttons = []
-
-const alphabet = 'abcdefghijklmnopqrstuvwxyz'
 const totalElement = document.getElementById("total")
 const submit = document.getElementById("submit")
+let buttons = []
 let total = ''
 let letter = ''
 let selection = []
 let word = ''
-const wordlistElement = document.getElementById('wordlist')
-let found_words = []
 
 class Button {
     constructor(id, isSelected, x, y) {
@@ -19,12 +15,11 @@ class Button {
     }
     letterValue
 }
-console.log(document.getElementById('1'))
+
 for (let i = 0; i < 4; i++) {
     buttons.push([])
     for (let j = 0; j < 4; j++) {
         buttons[i].push(new Button(document.getElementById('button' + i.toString() + j.toString()), false, j, i))
-
     }
 }
 

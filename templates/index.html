@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
     </head>
     <body>
-        <h2>{{found_words|length}}</h2>
+        <h2>{{score}}</h2>
         <h1 id="total"> </h1>
         {% for i in range(4) %}
             {% for j in range(4) %}
