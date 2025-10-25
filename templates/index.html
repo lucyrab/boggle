@@ -7,19 +7,27 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
     </head>
     <body>
-        <h2>{{score}}</h2>
-        <h1 id="total"> </h1>
-        {% for i in range(4) %}
-            {% for j in range(4) %}
-                <button id="button{{i}}{{j}}">{{boggle_layout[i][j]}}</button>
-            {% endfor %}
-            <br>
-        {% endfor %}
-        <button id="submit">Submit</button>
-        <div id="wordlist">
-            {% for word in found_words %}
-            <p>{{word}}</p>
-            {% endfor %}
+        <div class="game">
+            <div class="main-part">
+            <input id="total"></input>
+            <div class="buttons-container" >
+                {% for i in range(4) %}
+                {% for j in range(4) %}
+                <button id="button{{i}}{{j}}" class="boggle-button">{{boggle_layout[i][j]}}</button>
+                {% endfor %}
+                {% endfor %}
+            </div>
+            <button id="submit">Submit</button>
+            </div>
+            <div class="sidebar">
+                <h3>Found Words:</h3>
+                <div class="wordlist">
+                    {% for word in found_words %}
+                    <div class="found-word">{{word}}</div>
+                    {% endfor %}
+                </div>
+                <h3>Total: {{score}}</h3>
+            </div>
         </div>
     </body>
     <script src="{{url_for('static', filename='script.js')}}"></script>

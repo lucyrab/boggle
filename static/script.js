@@ -5,6 +5,10 @@ let total = ''
 let letter = ''
 let selection = []
 let word = ''
+const buttonColour = '#fae7cb'
+const selectedButtonColour = '#B89563'
+
+totalElement.readOnly = true
 
 class Button {
     constructor(id, isSelected, x, y) {
@@ -25,13 +29,13 @@ for (let i = 0; i < 4; i++) {
 
 function handleLetterClick(buttonObject, buttonId) {
     if (selection.length != 0 && selection[selection.length - 1].id === buttonId) {
-        buttonId.style.backgroundColor = 'white'
+        buttonId.style.backgroundColor = buttonColour
         selection[selection.length - 1].isSelected = false
         selection = selection.slice(0, -1)
     }  else if (selection.length != 0 && ((Math.abs(buttonObject.x - selection[selection.length - 1].x) > 1 || Math.abs(buttonObject.y - selection[selection.length - 1].y) > 1)) && (!buttonObject.isSelected)){
         for (object of selection) {
             object.isSelected = false
-            object.id.style.backgroundColor = 'white'
+            object.id.style.backgroundColor = buttonColour
     }
         buttonObject.isSelected = true
         selection = [buttonObject]
@@ -43,7 +47,7 @@ function handleLetterClick(buttonObject, buttonId) {
                     found = true
                     for (let i = (count + 1); i < (selection.length); i++) {
                         selection[i].isSelected = false
-                        selection[i].id.style.backgroundColor = 'white'
+                        selection[i].id.style.backgroundColor = buttonColour
                     }
                     selection = selection.slice(0, (count + 1))
                 } else {
@@ -58,9 +62,9 @@ function handleLetterClick(buttonObject, buttonId) {
     word = ''
     for (object of selection) {
         word += object.id.innerHTML
-        object.id.style.backgroundColor = 'red'
+        object.id.style.backgroundColor = selectedButtonColour
     }
-    totalElement.innerHTML = word
+    totalElement.value = word
     
 }
 
@@ -71,7 +75,7 @@ async function handleSubmit() {
 
     for (object of selection) {
             object.isSelected = false
-            object.id.style.backgroundColor = 'white'
+            object.id.style.backgroundColor = buttonColour
     }
     selection = []
 }
