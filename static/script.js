@@ -15,7 +15,7 @@ const selectedButtonColour = '#B89563'
 
 let minutes_left = 3
 let seconds_left = 0
-isGameFinished = false
+let isGameFinished = false
 
 timerElement.innerHTML = `${minutes_left}:0${seconds_left}`
 
@@ -32,6 +32,7 @@ function removeSecond() {
     } else if ((seconds_left === 0 && minutes_left === 0) && isGameFinished === false) {
         isGameFinished = true
         alert(`Time up! You got a score of ${score} points`)
+        restartGame()
     }
     if (String(seconds_left).length === 2) {
         timerElement.innerHTML = `${minutes_left}:${seconds_left}`
@@ -113,6 +114,31 @@ async function handleSubmit() {
             object.id.style.backgroundColor = buttonColour
     }
     selection = []
+}
+
+async function restartGame() {
+    minutes_left = 3
+    seconds_left = 0
+    isGameFinished = false
+    score = 0
+    selection = []
+    total = ''
+    for (const row of buttons) {
+    for (const button of row) {
+        button.id.style.backgroundColor = buttonColour
+        button.isSelected = false
+    }
+}
+    const response = await fetch(`/restart`).then(response => response.json()).then(data => {
+        for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            buttons[i][j].id.innerHTML = data[i][j]
+        }
+    }
+    })
+    wordListElement.innerHTML = ''
+    scoreElement.innerHTML = 'Total: 0'
+    totalElement.value = ''
 }
 
 for (const row of buttons) {

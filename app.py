@@ -49,3 +49,23 @@ def submit(name):
         else:
             print("An error has occured")
     return [found_words, score]
+
+@app.route('/restart')
+def restart():
+    global found_words
+    global boggle_layout
+    global score
+    global boggle_dice
+    found_words = []
+    boggle_layout = []
+    score = 0
+    random.shuffle(boggle_dice)
+    for i in range(4):
+        boggle_layout.append([])
+        for j in range(4):
+            random_number = random.randint(0, 5)
+            if random_number < 5 or len(boggle_dice[(i * 4 + j)]) == 6:
+                boggle_layout[i].append(boggle_dice[(i * 4 + j)][random_number])
+            else:
+                boggle_layout[i].append(boggle_dice[(i * 4 + j)][5:7])
+    return boggle_layout
