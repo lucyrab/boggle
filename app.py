@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 import random
 app = Flask(__name__)
 
@@ -30,7 +30,7 @@ for i in range(4):
 def index():
     return render_template('index.html', found_words=found_words, boggle_layout=boggle_layout, score=score)
 
-@app.route('/submit/<name>', methods=['GET'])
+@app.route('/submit/<name>', methods=['GET', 'POST'])
 def submit(name):
     global found_words
     global score
@@ -48,5 +48,4 @@ def submit(name):
             score += 11
         else:
             print("An error has occured")
-
-    return ''
+    return [found_words, score]

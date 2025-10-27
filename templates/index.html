@@ -7,6 +7,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
     </head>
     <body>
+        <div id="timer"></div>
         <div class="game">
             <div class="main-part">
             <input id="total"></input>
@@ -21,12 +22,8 @@
             </div>
             <div class="sidebar">
                 <h3>Found Words:</h3>
-                <div class="wordlist">
-                    {% for word in found_words %}
-                    <div class="found-word">{{word}}</div>
-                    {% endfor %}
-                </div>
-                <h3>Total: {{score}}</h3>
+                <div class="wordlist" id="wordlist"></div>
+                <h3 id="score">Total: {{score}}</h3>
             </div>
         </div>
     </body>

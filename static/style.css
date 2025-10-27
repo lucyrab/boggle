@@ -44,8 +44,8 @@ button {
 .sidebar {
     display: flex;
     flex-direction: column;
-    padding: 1em;
-    margin: 2em;
+    margin-left: 2em;
+    margin-right: 1em;
     font-size: 2em;
 }
 
@@ -66,6 +66,13 @@ button {
     border: none;
     font-size: 2em;
     text-align: center;
-    margin: 1em;
+    margin: 0.5em;
+    background: transparent;
+}
 
+#timer {
+    font-size: 2em;
+    align-self: right;
+    margin-left: .5em;
+    margin-top: .5em;
 }

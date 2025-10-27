@@ -1,13 +1,47 @@
 const totalElement = document.getElementById("total")
 const submit = document.getElementById("submit")
+const timerElement = document.getElementById("timer")
+const wordListElement = document.getElementById("wordlist")
+const scoreElement = document.getElementById("score")
+
 let buttons = []
 let total = ''
 let letter = ''
 let selection = []
 let word = ''
+let score = 0
 const buttonColour = '#fae7cb'
 const selectedButtonColour = '#B89563'
 
+let minutes_left = 3
+let seconds_left = 0
+isGameFinished = false
+
+timerElement.innerHTML = `${minutes_left}:0${seconds_left}`
+
+function startTimer() {
+    setTimeout(removeSecond, 1000)
+}
+
+function removeSecond() {
+    if (seconds_left > 0) {
+        seconds_left -= 1
+    } else if (seconds_left === 0 && minutes_left > 0) {
+        minutes_left -= 1
+        seconds_left = 59
+    } else if ((seconds_left === 0 && minutes_left === 0) && isGameFinished === false) {
+        isGameFinished = true
+        alert(`Time up! You got a score of ${score} points`)
+    }
+    if (String(seconds_left).length === 2) {
+        timerElement.innerHTML = `${minutes_left}:${seconds_left}`
+    } else {
+        timerElement.innerHTML = `${minutes_left}:0${seconds_left}`
+    }
+    setTimeout(removeSecond, 1000)
+}
+
+startTimer()
 totalElement.readOnly = true
 
 class Button {
@@ -65,14 +99,15 @@ function handleLetterClick(buttonObject, buttonId) {
         object.id.style.backgroundColor = selectedButtonColour
     }
     totalElement.value = word
-    
 }
 
 async function handleSubmit() {
-    const response = await fetch(`/submit/${word}`)
-    
-    window.location.reload()
-
+    const response = await fetch(`/submit/${word}`).then(response => response.json()).then(data => {
+        wordListElement.innerHTML = data[0].join('<br>')
+        score = data[1]
+        scoreElement.innerHTML = `Total: ${score}`
+    })
+    totalElement.value = ''
     for (object of selection) {
             object.isSelected = false
             object.id.style.backgroundColor = buttonColour
