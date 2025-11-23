@@ -35,7 +35,7 @@ def submit(name):
     global found_words
     global score
     if is_valid_word(name) and name not in found_words and len(name) >= 3:
-        found_words.append(name) 
+        found_words.append(name.upper()) 
         if len(name) == 3 or len(name) == 4:
             score += 1
         elif len(name) == 5:

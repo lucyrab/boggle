@@ -76,3 +76,63 @@ button {
     margin-left: .5em;
     margin-top: .5em;
 }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms
+}
+
+.popup {
+  background: #fff;
+  border-radius: 5px;
+  position: relative;
+  text-align: center;
+  color: black;
+}
+
+@media only screen and (max-width: 600px) { 
+  .popup {
+    width: 96%;
+    margin: 35% 2%;
+    padding: 90px 0;
+  }
+}
+
+@media only screen and (min-width: 600px) { 
+  .popup {
+    width: 550px;
+    margin: 160px auto;
+    padding: 95px 50px;
+  }
+}
+
+.play-button {
+  border: 2px solid #3B3B3B;
+  margin: 1rem;
+  background: none;
+  font-size: 1em;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+}
+
+.play-button:hover {
+  background-color: #3B3B3B;
+  color: white;
+}
+
+.title {
+    font-size: 2em;
+    margin: 0.5em;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-weight: 400;
+    font-size: 1.4em;
+    margin: 0.5em;
+}

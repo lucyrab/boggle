@@ -3,6 +3,11 @@ const submit = document.getElementById("submit")
 const timerElement = document.getElementById("timer")
 const wordListElement = document.getElementById("wordlist")
 const scoreElement = document.getElementById("score")
+const playButtonElement = document.getElementById("play-button")
+const overlayElement = document.getElementById("overlay")
+const popupElement = document.getElementById("popup")
+const titleElement = document.getElementById('title')
+const subtitleElement = document.getElementById('subtitle')
 
 let buttons = []
 let total = ''
@@ -17,10 +22,17 @@ let minutes_left = 3
 let seconds_left = 0
 let isGameFinished = false
 
+let wordsFound = []
+
 timerElement.innerHTML = `${minutes_left}:0${seconds_left}`
 
 function startTimer() {
     setTimeout(removeSecond, 1000)
+}
+
+function startGame(){
+    startTimer()
+    restartGame()
 }
 
 function removeSecond() {
@@ -31,8 +43,13 @@ function removeSecond() {
         seconds_left = 59
     } else if ((seconds_left === 0 && minutes_left === 0) && isGameFinished === false) {
         isGameFinished = true
-        alert(`Time up! You got a score of ${score} points`)
-        restartGame()
+        titleElement.innerHTML = 'Time up!'
+        subtitleElement.innerHTML =  `You got a score of ${score} points`
+        playButtonElement.value = 'Restart'
+        popupElement.style.display = 'block'
+        overlayElement.style.display = 'block'
+        playButtonElement.addEventListener('click', restartGame)
+        return 0
     }
     if (String(seconds_left).length === 2) {
         timerElement.innerHTML = `${minutes_left}:${seconds_left}`
@@ -42,8 +59,9 @@ function removeSecond() {
     setTimeout(removeSecond, 1000)
 }
 
-startTimer()
 totalElement.readOnly = true
+
+playButtonElement.addEventListener('click', startGame)
 
 class Button {
     constructor(id, isSelected, x, y) {
@@ -52,7 +70,6 @@ class Button {
         this.x = x
         this.y = y
     }
-    letterValue
 }
 
 for (let i = 0; i < 4; i++) {
@@ -96,7 +113,7 @@ function handleLetterClick(buttonObject, buttonId) {
     
     word = ''
     for (object of selection) {
-        word += object.id.innerHTML
+        word += object.id.innerHTML.toUpperCase()
         object.id.style.backgroundColor = selectedButtonColour
     }
     totalElement.value = word
@@ -104,9 +121,10 @@ function handleLetterClick(buttonObject, buttonId) {
 
 async function handleSubmit() {
     const response = await fetch(`/submit/${word}`).then(response => response.json()).then(data => {
-        wordListElement.innerHTML = data[0].join('<br>')
+        wordsFound = data[0]
+        wordListElement.innerHTML = wordsFound.join('<br>')
         score = data[1]
-        scoreElement.innerHTML = `Total: ${score}`
+        scoreElement.innerHTML = `Score: ${score}`
     })
     totalElement.value = ''
     for (object of selection) {
@@ -123,6 +141,8 @@ async function restartGame() {
     score = 0
     selection = []
     total = ''
+    timerElement.innerHTML = `${minutes_left}:0${seconds_left}`
+
     for (const row of buttons) {
     for (const button of row) {
         button.id.style.backgroundColor = buttonColour
@@ -137,8 +157,10 @@ async function restartGame() {
     }
     })
     wordListElement.innerHTML = ''
-    scoreElement.innerHTML = 'Total: 0'
+    scoreElement.innerHTML = 'Score: 0'
     totalElement.value = ''
+    popupElement.style.display = 'none'
+    overlayElement.style.display = 'none'
 }
 
 for (const row of buttons) {

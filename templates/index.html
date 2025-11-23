@@ -7,6 +7,13 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">    
     </head>
     <body>
+        <div class='overlay' id="overlay">
+        <div class='popup' id="popup">
+          <h2 class='title' id="title">Boggle</h2>
+          <h3 class="subtitle" id="subtitle" display="none"></h3>
+          <input id='play-button' class='play-button' type='button' value='Play'/>
+        </div>
+      </div>
         <div id="timer"></div>
         <div class="game">
             <div class="main-part">
@@ -23,7 +30,7 @@
             <div class="sidebar">
                 <h3>Found Words:</h3>
                 <div class="wordlist" id="wordlist"></div>
-                <h3 id="score">Total: {{score}}</h3>
+                <h3 id="score">Score: {{score}}</h3>
             </div>
         </div>
     </body>
