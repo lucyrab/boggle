@@ -11,7 +11,7 @@
         <div class='popup' id="popup">
           <h2 class='title' id="title">Boggle</h2>
           <h3 class="subtitle" id="subtitle" display="none"></h3>
-          <input id='play-button' class='play-button' type='button' value='Play'/>
+          <input id='play-button' class='play-button normal-buttons' type='button' value='Play'/>
         </div>
       </div>
         <div id="timer"></div>
@@ -25,7 +25,10 @@
                 {% endfor %}
                 {% endfor %}
             </div>
-            <button id="submit">Submit</button>
+            <div class="action-buttons" >
+                <button id="rotate" class="normal-buttons">Rotate</button>
+                <button id="submit" class="normal-buttons">Submit</button>
+            </div>
             </div>
             <div class="sidebar">
                 <h3>Found Words:</h3>

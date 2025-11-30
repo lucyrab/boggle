@@ -50,6 +50,17 @@ def submit(name):
             print("An error has occured")
     return [found_words, score]
 
+@app.route('/rotate')
+def rotate():
+    global boggle_layout
+    temporary_layout = [['','','',''],['','','',''],['','','',''],['','','','']]
+    for y in range(len(boggle_layout)):
+        for x in range(len(boggle_layout[0])):
+            temporary_layout[x][3-y] = boggle_layout[y][x]
+    boggle_layout = temporary_layout
+    print(boggle_layout)
+    return boggle_layout
+
 @app.route('/restart')
 def restart():
     global found_words

@@ -8,6 +8,7 @@ const overlayElement = document.getElementById("overlay")
 const popupElement = document.getElementById("popup")
 const titleElement = document.getElementById('title')
 const subtitleElement = document.getElementById('subtitle')
+const rotateElement = document.getElementById('rotate')
 
 let buttons = []
 let total = ''
@@ -134,6 +135,17 @@ async function handleSubmit() {
     selection = []
 }
 
+async function handleRotate() {
+    const response = await fetch('/rotate').then(response => response.json()).then(data => {
+        for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            buttons[i][j].id.innerHTML = data[i][j]
+        }
+    }
+    }
+    )
+}
+
 async function restartGame() {
     minutes_left = 3
     seconds_left = 0
@@ -172,3 +184,4 @@ for (const row of buttons) {
 }
 
 submit.addEventListener('click', handleSubmit)
+rotateElement.addEventListener('click', handleRotate)
