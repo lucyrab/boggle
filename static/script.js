@@ -9,6 +9,7 @@ const popupElement = document.getElementById("popup")
 const titleElement = document.getElementById('title')
 const subtitleElement = document.getElementById('subtitle')
 const rotateElement = document.getElementById('rotate')
+const resetElement = document.getElementById('reset')
 
 let buttons = []
 let total = ''
@@ -146,6 +147,15 @@ async function handleRotate() {
     )
 }
 
+function handleReset() {
+    totalElement.value = ''
+    for (object of selection) {
+            object.isSelected = false
+            object.id.style.backgroundColor = buttonColour
+    }
+    selection = []
+}
+
 async function restartGame() {
     minutes_left = 3
     seconds_left = 0
@@ -185,3 +195,4 @@ for (const row of buttons) {
 
 submit.addEventListener('click', handleSubmit)
 rotateElement.addEventListener('click', handleRotate)
+resetElement.addEventListener('click', handleReset)
